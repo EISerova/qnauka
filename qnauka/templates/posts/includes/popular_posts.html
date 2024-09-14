@@ -1,0 +1,93 @@
+{% load static %}
+<!-- Most Populer News Start -->
+<div class="col-lg-4 col-xl-3">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="p-3 rounded border">
+                <h4 class="text-center my-4">Популярное</h4>
+                <div class="row g-4">
+                    {% for post in popular_posts %}                    
+                        <div class="col-12">
+                            <div class="row g-4 align-items-center features-item">
+                                <div class="col-4">
+                                    <div class="rounded-circle position-relative">
+                                        <div class="overflow-hidden rounded-circle">
+                                            <img src="{{ post.image.url }}" class="img-fluid rounded-circle w-100" height="100%" alt="{{ post.title }}">
+                                        </div>                                    
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="features-content d-flex flex-column">
+                                        <small class="text-body d-block"></i> {{ post.created_at|date:'Y M d' }}</small>
+                                        <a href={% url 'post_detail' post.category.slug post.slug %} class="h6">                                            
+                                            <p class="mb-2">{{ post.title }}</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                
+                    {% endfor %}
+                </div>
+                <div class="col-lg-12">
+                    <div class="border-bottom text-center my-3 pb-3">
+                        <h4 class="mb-0">Теги</h4>
+                    </div>
+                    <ul class="list-unstyled card-columns text-center" style="column-count: 2;">
+                        <li class="nav-item mb-3">
+                            <a class="d-flex py-2 bg-light rounded-pill me-2" href="{% url 'tag_page' 'археология' %}">
+                                <span class="text-dark link-hover" style="width: 120px;">Археология</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="d-flex py-2 bg-light rounded-pill me-2" href="{% url 'tag_page' 'астрономия' %}">
+                                <span class="text-dark link-hover" style="width: 120px;">Астрономия</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="d-flex py-2 bg-light rounded-pill me-2" href="{% url 'tag_page' 'животные' %}">
+                                <span class="text-dark link-hover" style="width: 120px;">Животные</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="d-flex py-2 bg-light rounded-pill me-2" href="{% url 'tag_page' 'геология' %}">
+                                <span class="text-dark link-hover" style="width: 120px;">Геология</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="d-flex py-2 bg-light rounded-pill me-2" href="{% url 'tag_page' 'ии' %}">
+                                <span class="text-dark link-hover" style="width: 120px;">ИИ</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="d-flex py-2 bg-light rounded-pill me-2" href="{% url 'tag_page' 'палеонтология' %}">
+                                <span class="text-dark link-hover" style="width: 120px;">Палеонтология</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="d-flex py-2 bg-light rounded-pill me-2" href="{% url 'tag_page' 'планета-земля' %}">
+                                <span class="text-dark link-hover" style="width: 120px;">Планета Земля</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="d-flex py-2 bg-light rounded-pill me-2" href="{% url 'tag_page' 'вопросы' %}">
+                                <span class="text-dark link-hover" style="width: 120px;">Вопросы</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="d-flex py-2 bg-light rounded-pill me-2" href="{% url 'tag_page' 'теории' %}">
+                                <span class="text-dark link-hover" style="width: 120px;">Теории</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a class="d-flex py-2 bg-light rounded-pill me-2" href="{% url 'tag_page' 'в-мире-науки' %}">
+                                <span class="text-dark link-hover" style="width: 120px;">В мире науки</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>            
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Most Populer News End -->

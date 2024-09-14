@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>   
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- фав-иконки -->
+    <link rel="icon" 
+        href={% static "img/fav/fav.ico" %} 
+        type="image">
+    <link rel="apple-touch-icon" 
+        sizes="180x180" 
+        href={% static "img/fav/apple-touch-icon.png" %}>
+    <link rel="icon" 
+        type="image/png" 
+        sizes="32x32" 
+        href={% static "img/fav/favicon-32x32.png" %}>
+    <link rel="icon" 
+        type="image/png" 
+        sizes="16x16"    
+        href={% static "img/fav/favicon-16x16.png" %}>
+    <!-- фав-иконки -->
+        
+    <meta name="msapplication-TileColor" content="#000">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="description" content="Последние новости из области археологии, астрономии, геологии, биологии и других дисциплин">
+
+    <title> {% block title %} {% endblock title %} Научные горизонты</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    {% load jsonld %}
+    {% json_ld_for post %}
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    
+        ym(98171691, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/98171691" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+</head>
+
+<body>
+    {% include 'includes/header.html' %}
+        <div class="container-fluid populer-news py-1">
+            <div class="container py-1">
+                <div class="tab-class mb-4">
+                    <div class="row g-4">
+                        <div class="col-lg-8 col-xl-9">                  
+                            <div class="container-fluid bg-light" style="width: 100%;">
+                                <nav class="navbar navbar-light navbar-expand-lg" style="width: auto;">
+                                    <a href="/" class="navbar-brand mt-3">
+                                        <p class="text-primary display-6 mb-2" style="line-height: 0;">Научные</p>
+                                        <small class="text-body fw-normal" style="letter-spacing: 12px;">горизонты</small>
+                                    </a>
+                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width:50px ">
+                                                <div class="navbar-nav mx-auto border-top d-inline-flex">
+                                                    <ul class="navbar-nav d-inline-flex text-center" >
+                                                        <li class="nav-item mb-1 px-1">
+                                                            <a class="d-flex py-2 rounded-pill me-2 border border-dark flex-div" style=" background-color: #f8f9fa; {% if category|stringformat:'s' == "История" %}background-color: #DDE5F6;{% endif %}" data-bs-toggle="pill" href="{% url 'category_detail' 'istoriya' %}">
+                                                                <span class="text-dark" style="width: 120px;">История</span> 
+                                                            </a>
+                                                        </li>
+                                                        <i class="fa-sharp fa-light fa-house"></i>
+                                                        <li class="nav-item mb-1 px-1">
+                                                            <a class="d-flex py-2 rounded-pill me-2 border border-dark" style="background-color: #f8f9fa; {% if category|stringformat:'s' == "Технологии" %}background-color: #DDE5F6;{% endif %}" data-bs-toggle="pill" href="{% url 'category_detail' 'tehnologii' %}">
+                                                                <span class="text-dark" style="width: 120px;">Технологии</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item mb-1 px-1">
+                                                            <a class="d-flex py-2 rounded-pill me-2 border border-dark" style="background-color: #f8f9fa; {% if category|stringformat:'s' == "Земля" %}background-color: #DDE5F6;{% endif %}" data-bs-toggle="pill" href="{% url 'category_detail' 'zemlya' %}">
+                                                                <span class="text-dark" style="width: 120px;">Земля</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item mb-1 px-1">
+                                                            <a class="d-flex py-2 rounded-pill me-2 border border-dark" style="background-color: #f8f9fa; {% if category|stringformat:'s' == "Космос" %}background-color: #DDE5F6;{% endif %}" data-bs-toggle="pill" href="{% url 'category_detail' 'kosmos' %}">
+                                                                <span class="text-dark" style="width: 120px;">Космос</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item mb-1 px-1">
+                                                            <a class="d-flex py-2 rounded-pill me-2 border border-dark" style="background-color: #f8f9fa; {% if category|stringformat:'s' == "Тело человека" %}background-color: #DDE5F6;{% endif %}" data-bs-toggle="pill" href="{% url 'category_detail' 'telo-cheloveka' %}">
+                                                                <span class="text-dark" style="width: 120px;">Тело человека</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </nav>
+                                    </div>
+                            <div class="tab-content mb-4">
+                                <div id="tab-1" class="tab-pane fade show p-0 active">
+                                    <div class="row g-4">
+                                        <div class="col-lg-12">
+                                            <div class="my-4">
+                                                <section class="section">
+                                                    <div class="container">                                                        
+                                                        {% block content %}
+                                                        {% endblock %}
+                                                    </div>
+                                                </section>
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% include 'posts/includes/popular_posts.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>         
+    <footer class="footer">
+        {% include 'includes/footer.html' %}
+    </footer>    
+</body>
+</html>

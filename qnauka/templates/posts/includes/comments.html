@@ -1,0 +1,55 @@
+
+<div id="comments" class="comments-block block">
+    {% if post.comments.count != 0 %}
+    <h4 class="news-title">
+        <span>Количество комментариев: {{ post.comments.count }}</span>
+    </h4>   
+    <ul class="all-comments">
+        <li>
+            <div class="comment">
+                <div class="comment-body">
+                    {% for comment in comments %}
+                    <div class="meta-data">
+                        <span class="commented-person-name">{{ comment.name }} </span>
+                        <span class="comment-hour d-block"><i class="fa fa-clock-o mr-2"></i>&nbsp; {{ comment.created_at }}</span>
+                    </div>
+                    <div class="comment-content">
+                        <p>
+                            {{ comment.body | linebreaks }}
+                        </p>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        </li>
+    </ul>
+    {% endif %}
+</div>
+<div class="comment-form">
+    <h3 class="title-normal">Оставить комментарий</h3>
+    <p class="mb-4">Заполните все поля. Ваш email-адрес не будет опубликован.</p>    
+    <form role="form" method="post">
+        <div class="row">
+            {% csrf_token %}
+            <div class="col-md-12">
+                <div class="form-group">
+                    {{ form.body }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form.name }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form.email }}
+                </div>
+            </div>
+            <div class="col-md-12">
+                <button class="comments-btn btn btn-outline-success" type="submit" style="float: right;">Отправить</button>
+            </div>           
+        </div>
+    </form>
+</div>

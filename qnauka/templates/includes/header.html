@@ -1,0 +1,25 @@
+{% load static %}
+<header>
+    <nav class="navbar navbar-expand-md">
+        <div class="navbar-collapse collapse w-80 order-0 dual-collapse2 ">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link"href="{% url 'about' %}">О сайте</a>
+                </li>               
+            </ul>
+        </div>
+        <div class="navbar-collapse collapse order-2 dual-collapse2 justify-content-start mx-auto order-1" >
+            <a href="/"> <img src="{% static "img/logo.png" %}" class="navbar-brand mx-auto img-zoomin img-fluid" ></a>
+        </div>
+        <div class="navbar-collapse collapse w-60 order-2 dual-collapse2 justify-content-end">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <form class="d-flex" role="search" method="get" action="{% url 'search' %}">
+                        <input class="form-control me-2" name="query" type="search" placeholder="Введите запрос" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Поиск</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

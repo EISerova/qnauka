@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+Поиск | 
+{% endblock title %}
+
+{% block content %}
+
+
+<section class="error-404 section-padding bg-white">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-6 text-center">
+                <div class="search-info mb-4">
+                    <i class="fa fa-search"></i>
+                    <i class="fa fa-search" style="font-size:24px"></i>
+                    <i class="fa fa-search" style="font-size:36px"></i>
+                    <i class="fa fa-search" style="font-size:48px;color:red"></i>
+                    <h2 class="mt-5">Результаты поиска по запросу "{{ query }}"</h2>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        {% for post in posts %}
+        <div class="row mt-1">
+            <div class="post-block-wrapper clearfix mb-5 mb-lg-0">
+                <div class="post-content">
+                    <h4 class="post-title mt-3">
+                        <a class="text-decoration-none text-reset" href="{% url 'post_detail' post.category.slug post.slug %}">{{ post.title }}</a>
+                    </h4>
+                    <div class="post-meta mb-2">
+                        <span class="posted-time small">Опубликовано: {{ post.created_at|date:'d M Y' }}</span>
+                    </div>
+                    <p>{{ post.intro }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="content">
+            <p>Нет результатов...</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}
