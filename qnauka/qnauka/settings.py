@@ -135,6 +135,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+
 STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
@@ -207,15 +208,16 @@ CKEDITOR_5_CONFIGS = {
             'blockQuote',
         ],
         'toolbar': ['undo', 'redo', 'heading', '|', 'alignment:left', 'alignment:right', 'alignment:center', 'alignment:justify' 'outdent', 'indent', '|', 'bold', 'italic', 'underline', 'strikethrough', '|',
-                    'link', '|', 'insertImage', 'toggleImageCaption', 'imageTextAlternative', 'ImageResize', '|', 'subscript', 'superscript', 'highlight', '|', 'sourceEditing',
+                    'link', '|', 'insertImage', 'toggleImageCaption', 'imageTextAlternative', 'ImageResize', 'imageStyle:alignRight', 'imageStyle:alignCenter', '|', 'subscript', 'superscript', 'highlight', '|', 'sourceEditing',
                     'bulletedList', '|',  'blockQuote', 'imageUpload', '|',
                     'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
                     'insertTable',],
-
         'width': 'auto',
         'toolbarCanCollapse': True,        
     },
 }
+# CKEDITOR_5_CUSTOM_CSS = os.path.join(STATIC_URL, "django_ckeditor_5/ckeditor_custom.css")
+CKEDITOR_5_CUSTOM_CSS = 'css/ckeditor_custom.css'
 
 UNFOLD = {
     "SITE_TITLE": 'Qnauka',
