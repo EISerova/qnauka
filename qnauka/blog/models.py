@@ -2,6 +2,7 @@ from django.db import models
 from taggit.managers import TaggableManager
 from django_ckeditor_5.fields import CKEditor5Field
 
+from .indexnow_utils import notify_indexnow
 
 class Category(models.Model):
     """Модель категорий"""
@@ -34,6 +35,8 @@ class Post(models.Model):
     POPULAR = "popular"
     TOP = "top"
     NONE = "none"
+    PUBLISH = 'Publish'
+    NOT_PUBLISH = 'Not publish'
 
     CHOICES_STATUS = (
         (ACTIVE, "Active"),
@@ -41,6 +44,8 @@ class Post(models.Model):
     )
 
     CHOICES_MAIN = ((POPULAR, "Popular"), (TOP, "Top"), (NONE, "None"))
+    
+    PUBLISH_IN_TELEGRAM = ((PUBLISH, 'Publish'), (NOT_PUBLISH, 'Not publish'))
 
     category = models.ForeignKey(
         Category,
@@ -70,11 +75,17 @@ class Post(models.Model):
         max_length=80, blank=True, null=True, verbose_name="источник"
     )
     views = models.ManyToManyField(Ip, related_name="post_views", blank=True)
+    publish_in_telegram = models.CharField(
+        max_length=11, choices=PUBLISH_IN_TELEGRAM, default=PUBLISH, verbose_name="опубликовать в Telegram")
 
     class Meta:
         ordering = ("-created_at",)
         verbose_name_plural = "Статьи"
         verbose_name = "статья"
+    
+    def save(self, **kwargs):
+        super().save(**kwargs)
+        # notify_indexnow(self.slug, self.category.slug)
 
     def __str__(self):
         return self.title

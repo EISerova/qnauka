@@ -1,20 +1,60 @@
 from django.contrib import admin
+from django.http import HttpResponseRedirect
+from django.conf import settings
 
 from unfold.admin import ModelAdmin
 
 from .models import Post, Category, PostComment, Ip
 
+from blog.telegram_utils import send, CHAT_ID
+
+
+from django.contrib import admin
+from django.contrib.postgres.fields import ArrayField
+from django.db import models
+
+from unfold.contrib.forms.widgets import ArrayWidget, WysiwygWidget
+
 class CommentItemInLine(admin.TabularInline):
     model = PostComment
     raw_id_fields = ['post']
 
+
+@admin.register(Post)
 class PostAdmin(ModelAdmin):
     
     search_fields = ['title', 'intro', 'body']
     list_display = ['title', 'slug', 'category', 'created_at', 'status', "main_status", 'total_views']
     list_filter = ['category', 'created_at']
-    inlines = [CommentItemInLine]
     prepopulated_fields = {'slug': ('title',)}
+    actions_submit_line = ['telegram']
+    
+    @admin.action(description="telegram")
+    def telegram(self, request, post_obj):
+        if request.POST['publish_in_telegram']=='Publish':
+            send(
+                chat_id=CHAT_ID,
+                post=post_obj
+            )
+            post_obj.is_published = True
+            post_obj.save()
+            self.message_user(request, "Новость отправлена в Telegram-канал")
+            return HttpResponseRedirect(request.path_info)
+
+        return super().telegram(request, post_obj)
+    
+    
+    
+    # def response_change(self, request, post_obj):
+    #     if request.POST['publish_in_telegram']=='Publish':            
+    #         send(
+    #             chat_id=CHAT_ID,
+    #             post=post_obj
+    #         )
+    #         post_obj.is_published = True
+    #         post_obj.save()
+    #         return HttpResponseRedirect(request.path_info)
+    #     return super().response_change(request, post_obj)
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -32,7 +72,7 @@ class CommentAdmin(admin.ModelAdmin):
 class IpAdmin(admin.ModelAdmin):
     list_display = ['ip']
 
-admin.site.register(Post, PostAdmin)
+# admin.site.register(Post, PostAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(PostComment, CommentAdmin)
 admin.site.register(Ip, IpAdmin)

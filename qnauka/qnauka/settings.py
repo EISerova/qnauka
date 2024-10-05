@@ -19,17 +19,11 @@ def get_env_value(env_variable):
         error_msg = "Установите переменную окружения {}".format(env_variable)
         raise ImproperlyConfigured(error_msg)
 
-
-
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY")
-# SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False
-
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = ["*"]
@@ -261,3 +255,6 @@ UNFOLD = {
     },
 
 }
+
+INDEXNOW_KEY = os.getenv("INDEXNOW_KEY")
+CHAT_ID = os.getenv("CHAT_ID")

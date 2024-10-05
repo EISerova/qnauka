@@ -3,56 +3,13 @@
 
 <nav>
     <ul class="pagination pagination-sm justify-content-center" style="color: #026ca2;">
-        <li class="page-item">
-            <a class="page-link {% if posts_list.number == 1 %}active{% endif %}" href="?page=1" style="color: #026ca2; margin: 0 9px; border: 1px solid #ddd; {% if posts_list.number == 1 %}background-color: #EAEEF1;{% endif %}">
-                1
-            </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link {% if posts_list.number == 2 %}active{% endif %}" href="?page=2" style="color: #026ca2; margin: 0 9px; border: 1px solid #ddd; {% if posts_list.number == 2 %}background-color: #EAEEF1;{% endif %}">
-                2
-            </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link {% if posts_list.number == 3 %}active{% endif %}" href="?page=3" style="color: #026ca2; margin: 0 9px; border: 1px solid #ddd; {% if posts_list.number == 3 %}background-color: #EAEEF1;{% endif %}">
-                3
-            </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link {% if posts_list.number == 4 %}active{% endif %}" href="?page=4" style="color: #026ca2; margin: 0 9px; border: 1px solid #ddd; {% if posts_list.number == 4 %}background-color: #EAEEF1;{% endif %}">
-                4
-            </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link {% if posts_list.number == 5 %}active{% endif %}" href="?page=5" style="color: #026ca2; margin: 0 9px; border: 1px solid #ddd; {% if posts_list.number == 5 %}background-color: #EAEEF1;{% endif %}">
-                5
-            </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link {% if posts_list.number == 6 %}active{% endif %}" href="?page=6" style="color: #026ca2; margin: 0 9px; border: 1px solid #ddd; {% if posts_list.number == 6 %}background-color: #EAEEF1;{% endif %}">
-                6
-            </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link {% if posts_list.number == 7 %}active{% endif %}" href="?page=7" style="color: #026ca2; margin: 0 9px; border: 1px solid #ddd; {% if posts_list.number == 7 %}background-color: #EAEEF1;{% endif %}">
-                7
-            </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link {% if posts_list.number == 8 %}active{% endif %}" href="?page=8" style="color: #026ca2; margin: 0 9px; border: 1px solid #ddd; {% if posts_list.number == 8 %}background-color: #EAEEF1;{% endif %}">
-                8
-            </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link {% if posts_list.number == 9 %}active{% endif %}" href="?page=9" style="color: #026ca2; margin: 0 9px; border: 1px solid #ddd; {% if posts_list.number == 9 %}background-color: #EAEEF1;{% endif %}">
-                9
-            </a>
-        </li>
-        {% if posts_list.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ posts_list.next_page_number }}" style="color: #026ca2;">&raquo</a>
-            </li>
-        {% endif %}
+    {% for page_number in paginator_obj.page_range %}
+
+    <li class="page-item">
+        <a class="page-link {% if posts_list.number == page_number %}active{% endif %}" href="?page={{page_number}}" style="color: #026ca2; margin: 0 9px; border: 1px solid #ddd; {% if posts_list.number == page_number %}background-color: #EAEEF1;{% endif %}">
+        {{ page_number }}
+        </a>
+    </li>
+    {% endfor %}
     </ul>
 </nav>
-

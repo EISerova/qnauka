@@ -6,21 +6,22 @@ from .models import Post, Category, Ip
 from .forms import CommentForm
 from qnauka.settings import SHOWING_POSTS
 
-
 def frontpage(request):
-    p = Paginator(
+    popular_posts = Post.objects.filter(main_status=Post.POPULAR)
+    top_post = Post.objects.filter(main_status=Post.TOP)
+    
+    paginator_obj = Paginator(
         Post.objects.filter(status=Post.ACTIVE).filter(main_status=Post.NONE), SHOWING_POSTS
     )
     page = request.GET.get("page")
-    posts_list = p.get_page(page)
-    popular_posts = Post.objects.filter(main_status=Post.POPULAR)
-    top_post = Post.objects.filter(main_status=Post.TOP)
+    posts_list = paginator_obj.get_page(page)
 
     return render(
         request,
         "posts/frontpage.html",
         {
             "posts_list": posts_list,
+            "paginator_obj": paginator_obj,
             "popular_posts": popular_posts,
             "top_post": top_post,
         },
@@ -62,9 +63,9 @@ def category(request, slug):
 
     category = get_object_or_404(Category, slug=slug)
 
-    p = Paginator(category.posts.filter(status=Post.ACTIVE), SHOWING_POSTS)
+    paginator_obj = Paginator(category.posts.filter(status=Post.ACTIVE), SHOWING_POSTS)
     page = request.GET.get("page")
-    posts_list = p.get_page(page)
+    posts_list = paginator_obj.get_page(page)
 
     return render(
         request,
@@ -72,20 +73,23 @@ def category(request, slug):
         {
             "category": category,
             "posts_list": posts_list,
+            "paginator_obj": paginator_obj,
             "popular_posts": popular_posts,
         },
     )
 
 
 def tag_page(request, tag_name):
-    p = Paginator(Post.objects.filter(tags__slug=tag_name).distinct(), SHOWING_POSTS)
-    page = request.GET.get("page")
-    posts_list = p.get_page(page)
     popular_posts = Post.objects.filter(main_status=Post.POPULAR)
+        
+    paginator_obj = Paginator(Post.objects.filter(tags__slug=tag_name).distinct(), SHOWING_POSTS)
+    page_number = request.GET.get("page")
+    posts_list = paginator_obj.get_page(page_number)
 
     context = {
         "tag_name": tag_name,
         "posts_list": posts_list,
+        "paginator_obj": paginator_obj,
         "popular_posts": popular_posts,
     }
 
