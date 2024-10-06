@@ -6,7 +6,7 @@ from unfold.admin import ModelAdmin
 
 from .models import Post, Category, PostComment, Ip
 
-from blog.telegram_utils import send_message_to_telegram, CHAT_ID
+from blog.telegram_utils import send_message_to_telegram
 
 
 from django.contrib import admin
@@ -43,7 +43,7 @@ class PostAdmin(ModelAdmin):
         """Кнопка для отправки поста в telegram."""
 
         if request.POST["publish_in_telegram"] == "Publish":
-            send_message_to_telegram(chat_id=CHAT_ID, post=post_obj)
+            send_message_to_telegram(post=post_obj)
             post_obj.is_published = True
             post_obj.save()
             self.message_user(request, "Новость отправлена в Telegram-канал")

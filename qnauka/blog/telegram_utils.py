@@ -21,13 +21,13 @@ def render_html_message(post):
         )
 
 
-def send_message_to_telegram(chat_id, post):
+def send_message_to_telegram(post):
     """Отправка сообщения в тг после нажатия кнопки в админке."""
 
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto?chat_id={CHAT_ID}"
     files = {"photo": post.image}
     data = {
-        "chat_id": chat_id,
+        "chat_id": CHAT_ID,
         "caption": render_html_message(post=post),
         "parse_mode": "HTML",
     }
