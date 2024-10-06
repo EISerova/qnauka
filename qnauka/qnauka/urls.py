@@ -10,16 +10,16 @@ from .sitemaps import CategorySitemap, PostSitemap
 
 from core.views import about, robot_txt
 
-sitemaps = {'category': CategorySitemap, 'post': PostSitemap}
+sitemaps = {"category": CategorySitemap, "post": PostSitemap}
 
 urlpatterns = [
-    path("ckeditor5/", include('django_ckeditor_5.urls')),
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
-    path('robots.txt', robot_txt, name='robot_txt'),
-    path('admin/', admin.site.urls),
-    path('about/', about, name='about'),
-    path('', include('blog.urls')),
-    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    path("ckeditor5/", include("django_ckeditor_5.urls")),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}),
+    path("robots.txt", robot_txt, name="robot_txt"),
+    path("admin/", admin.site.urls),
+    path("about/", about, name="about"),
+    path("", include("blog.urls")),
+    re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
 ]
 handler404 = "core.views.page_not_found"
 

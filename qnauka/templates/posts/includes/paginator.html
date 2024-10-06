@@ -1,15 +1,17 @@
 {% load static %}
 
-
 <nav>
     <ul class="pagination pagination-sm justify-content-center" style="color: #026ca2;">
     {% for page_number in paginator_obj.page_range %}
-
-    <li class="page-item">
-        <a class="page-link {% if posts_list.number == page_number %}active{% endif %}" href="?page={{page_number}}" style="color: #026ca2; margin: 0 9px; border: 1px solid #ddd; {% if posts_list.number == page_number %}background-color: #EAEEF1;{% endif %}">
-        {{ page_number }}
-        </a>
-    </li>
+        <li class="page-item">
+            <a 
+                class="page-link {% if posts_list.number == page_number %}active{% endif %}"
+                href="?page={{page_number}}"
+                style="color: #026ca2; margin: 0 9px; border: 1px solid #ddd; {% if posts_list.number == page_number %}background-color: #EAEEF1;{% endif %}"
+            >
+                {{ page_number }}
+            </a>
+        </li>
     {% endfor %}
     </ul>
 </nav>

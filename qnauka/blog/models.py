@@ -4,6 +4,7 @@ from django_ckeditor_5.fields import CKEditor5Field
 
 from .indexnow_utils import notify_indexnow
 
+
 class Category(models.Model):
     """Модель категорий"""
 
@@ -20,12 +21,14 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return "/%s/" % self.slug
-    
+
+
 class Ip(models.Model):
     ip = models.CharField(max_length=100)
 
     def __str__(self):
         return self.ip
+
 
 class Post(models.Model):
     """Модель статей."""
@@ -35,8 +38,8 @@ class Post(models.Model):
     POPULAR = "popular"
     TOP = "top"
     NONE = "none"
-    PUBLISH = 'Publish'
-    NOT_PUBLISH = 'Not publish'
+    PUBLISH = "Publish"
+    NOT_PUBLISH = "Not publish"
 
     CHOICES_STATUS = (
         (ACTIVE, "Active"),
@@ -44,8 +47,8 @@ class Post(models.Model):
     )
 
     CHOICES_MAIN = ((POPULAR, "Popular"), (TOP, "Top"), (NONE, "None"))
-    
-    PUBLISH_IN_TELEGRAM = ((PUBLISH, 'Publish'), (NOT_PUBLISH, 'Not publish'))
+
+    PUBLISH_IN_TELEGRAM = ((PUBLISH, "Publish"), (NOT_PUBLISH, "Not publish"))
 
     category = models.ForeignKey(
         Category,
@@ -56,7 +59,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255, verbose_name="название")
     slug = models.SlugField(verbose_name="слаг статьи")
     intro = models.TextField(max_length=800, blank=True, verbose_name="анонс")
-    body = CKEditor5Field(config_name='extends', verbose_name="текст")
+    body = CKEditor5Field(config_name="extends", verbose_name="текст")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="дата создания")
     status = models.CharField(
         max_length=10, choices=CHOICES_STATUS, default=ACTIVE, verbose_name="статус"
@@ -76,13 +79,17 @@ class Post(models.Model):
     )
     views = models.ManyToManyField(Ip, related_name="post_views", blank=True)
     publish_in_telegram = models.CharField(
-        max_length=11, choices=PUBLISH_IN_TELEGRAM, default=PUBLISH, verbose_name="опубликовать в Telegram")
+        max_length=11,
+        choices=PUBLISH_IN_TELEGRAM,
+        default=PUBLISH,
+        verbose_name="опубликовать в Telegram",
+    )
 
     class Meta:
         ordering = ("-created_at",)
         verbose_name_plural = "Статьи"
         verbose_name = "статья"
-    
+
     def save(self, **kwargs):
         super().save(**kwargs)
         # notify_indexnow(self.slug, self.category.slug)
@@ -92,30 +99,27 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return "/%s/%s/" % (self.category.slug, self.slug)
-    
+
     def total_views(self):
         return self.views.count()
-    
-    total_views.short_description = 'Просмотры'
-    
-    @property    
+
+    total_views.short_description = "Просмотры"
+
+    @property
     def structured_data(self):
         url = self.get_absolute_url()
         data = {
-            '@type': 'NewsArticle',
-            'name': self.title,
-            'headline': self.title,
-            'alternativeHeadline': self.intro,            
-            'datePublished': self.created_at.strftime('%d-%m-%Y'),        
-            'url': url,
-            'articleSection': self.category.slug,
-            'mainEntityOfPage': {
-                '@type': 'WebPage',
-                '@id': url
-            },
+            "@type": "NewsArticle",
+            "name": self.title,
+            "headline": self.title,
+            "alternativeHeadline": self.intro,
+            "datePublished": self.created_at.strftime("%d-%m-%Y"),
+            "url": url,
+            "articleSection": self.category.slug,
+            "mainEntityOfPage": {"@type": "WebPage", "@id": url},
         }
         if self.image:
-            data['image'] = self.image.url
+            data["image"] = self.image.url
 
         return data
 
@@ -127,7 +131,7 @@ class PostComment(models.Model):
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     # reply_to = models.ForeignKey('self', related_name='replies',null=True, blank=True, on_delete=models.CASCADE)
-    
+
     class Meta:
         ordering = ("-created_at",)
         verbose_name_plural = "Комментарии"
