@@ -44,12 +44,13 @@ class PostAdmin(ModelAdmin):
 
         if request.POST["publish_in_telegram"] == "Publish":
             send_message_to_telegram(post=post_obj)
-            post_obj.is_published = True
-            post_obj.save()
+            # post_obj.is_published = True
+            # post_obj.save()
             self.message_user(request, "Новость отправлена в Telegram-канал")
             return HttpResponseRedirect(request.path_info)
 
         return super().tg(request, post_obj)
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -58,11 +59,13 @@ class CategoryAdmin(admin.ModelAdmin):
     list_filter = ["posts"]
     prepopulated_fields = {"slug": ("title",)}
 
+
 @admin.register(PostComment)
 class CommentAdmin(admin.ModelAdmin):
     search_fields = ["title"]
     list_display = ["post", "name", "email", "body", "created_at"]
     list_filter = ["post", "name", "email", "created_at"]
+
 
 @admin.register(Ip)
 class IpAdmin(admin.ModelAdmin):

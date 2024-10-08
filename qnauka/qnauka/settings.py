@@ -21,8 +21,6 @@ def get_env_value(env_variable):
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv("SECRET_KEY")
-
 # DEBUG = False
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
@@ -271,5 +269,10 @@ UNFOLD = {
     },
 }
 
+SECRET_KEY = os.getenv("SECRET_KEY")
 INDEXNOW_KEY = os.getenv("INDEXNOW_KEY")
+HOST = os.getenv("HOST")
+
 CHAT_ID = os.getenv("CHAT_ID")
+BOT_DEBUG_TOKEN = os.getenv('BOT_DEBUG_TOKEN')
+BOT_TOKEN = os.getenv("BOT_TOKEN")
