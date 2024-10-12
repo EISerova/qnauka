@@ -11,9 +11,7 @@ from qnauka.settings import HOST, BOT_TOKEN, CHAT_ID
 def render_html_message(post):
     """Рендер шаблона сообщения для отправки в тг."""
 
-    return render_to_string(
-        "rss/telegram_post.html", {"post": post, "host": HOST}
-        )
+    return render_to_string("rss/telegram_post.html", {"post": post, "host": HOST})
 
 
 def send_message_to_telegram(post):

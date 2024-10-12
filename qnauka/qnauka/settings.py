@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "core.apps.CoreConfig",
     "blog.apps.BlogConfig",
     "taggit",
+    "taggit_autosuggest",
     "structured_data",
 ]
 
@@ -274,5 +275,5 @@ INDEXNOW_KEY = os.getenv("INDEXNOW_KEY")
 HOST = os.getenv("HOST")
 
 CHAT_ID = os.getenv("CHAT_ID")
-BOT_DEBUG_TOKEN = os.getenv('BOT_DEBUG_TOKEN')
+BOT_DEBUG_TOKEN = os.getenv("BOT_DEBUG_TOKEN")
 BOT_TOKEN = os.getenv("BOT_TOKEN")

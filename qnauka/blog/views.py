@@ -88,16 +88,24 @@ def category(request, slug):
     )
 
 
-def tag_page(request, tag_name):
-    popular_posts = Post.objects.filter(main_status=Post.POPULAR)
+def tag_page(request, tag):
+    """
+    Метод для страницы новостей по тегам,
+    tag_name - название тега для заголовка.
+    """
 
     paginator_obj = Paginator(
-        Post.objects.filter(tags__slug=tag_name).distinct(), SHOWING_POSTS
+        Post.objects.filter(tags__slug=tag).distinct(), SHOWING_POSTS
     )
     page_number = request.GET.get("page")
+
+    tag_name = tag.capitalize().replace("-", " ")
+
+    popular_posts = Post.objects.filter(main_status=Post.POPULAR)
     posts_list = paginator_obj.get_page(page_number)
 
     context = {
+        "tag": tag,
         "tag_name": tag_name,
         "posts_list": posts_list,
         "paginator_obj": paginator_obj,

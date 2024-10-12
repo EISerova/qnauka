@@ -11,14 +11,12 @@ session = requests.Session()
 def notify_indexnow(slug, category):
     """Функция быстрого индексирования, отправляет ссылку на новость https://yandex.com/indexnow"""
 
-    url_searchengine = 'https://yandex.com/indexnow'
+    url_searchengine = "https://yandex.com/indexnow"
     params = {
-        "url": f'{HOST}/{category}/{slug}',
+        "url": f"{HOST}/{category}/{slug}",
         "key": INDEXNOW_KEY,
     }
-    headers = {
-        'Content-Type': 'application/json; charset=utf-8'
-    }
+    headers = {"Content-Type": "application/json; charset=utf-8"}
     data = json.dumps(params)
 
     session.get(url_searchengine, data=data, headers=headers)
