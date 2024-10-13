@@ -1,14 +1,19 @@
 {% extends "base.html" %}
 
+{% block metadescription %}
+    <meta name="description" content="Все статьи в категории {{ category }}">
+{% endblock %}
+
+
 {% block title %}
-{{ category.title }} | 
+    {{ category.title }} - страница {{ posts_list.number }} | 
 {% endblock title %}
 
 {% block content %}
     <section class="info">
         <div class="container">
             <h1>{{ category.title }}</h1>
-            <p>Все статьи в категории "{{ category }}"</p>
+            <p>Все статьи в категории "{{ category }} {{posts_list.number}}"</p>
             <hr>
         </div>
     </section>

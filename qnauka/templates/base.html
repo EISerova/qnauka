@@ -28,7 +28,9 @@
     <meta name="msapplication-TileColor" content="#000">
     <meta name="theme-color" content="#ffffff">
 
-    <meta name="description" content="Последние новости из области археологии, астрономии, геологии, биологии и других дисциплин">
+    {% block metadescription %}
+        <meta name="description" content="Последние новости из области археологии, астрономии, геологии, биологии и других дисциплин">
+    {% endblock %}
 
     <title> {% block title %} {% endblock title %} Научные горизонты</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

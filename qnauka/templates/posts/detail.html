@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block metadescription %}
+    <meta name="description" content="{{post.intro|truncatechars:150}}">
+{% endblock %}
+
 {% block title %}
     {{ post.title }} |    
 {% endblock title %}

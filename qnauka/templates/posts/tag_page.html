@@ -1,6 +1,13 @@
 {% extends "base.html" %}
-{% block title %}{{ tag_name | title }} | {% endblock %}
-{% block canonical_url %}/tag/{{ tag }}/{% endblock %}
+
+{% block metadescription %}
+    <meta name="description" content="Все статьи по тегу {{ tag_name }}">
+{% endblock %}
+
+
+{% block title %}
+    {{ tag_name | title }} - страница {{ posts_list.number }} | 
+{% endblock title %}
 
 {% block content %}
 
