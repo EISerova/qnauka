@@ -2,6 +2,8 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 
+from taggit.models import Tag
+
 from .models import Post, Category, Ip
 from .forms import CommentForm
 from qnauka.settings import SHOWING_POSTS
@@ -34,6 +36,8 @@ def detail(request, category_slug, slug):
     post = get_object_or_404(Post, slug=slug, status=Post.ACTIVE)
     popular_posts = Post.objects.filter(main_status=Post.POPULAR)
     comments = post.comments.all()
+    tag = get_object_or_404(Tag, post__id=post.id)
+    related_posts = post.tags.similar_objects()[:3]
 
     if request.method == "POST":
         form = CommentForm(request.POST or None)
@@ -54,7 +58,7 @@ def detail(request, category_slug, slug):
     else:
         Ip.objects.create(ip=ip)
         post.views.add(Ip.objects.get(ip=ip))
-
+        
     return render(
         request,
         "posts/detail.html",
@@ -63,6 +67,8 @@ def detail(request, category_slug, slug):
             "popular_posts": popular_posts,
             "form": form,
             "comments": comments,
+            'related_posts': related_posts,
+            'tag': tag,
         },
     )
 
