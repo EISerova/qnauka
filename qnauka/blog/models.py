@@ -1,4 +1,5 @@
 from django.db import models
+
 from taggit.managers import TaggableManager
 from django_ckeditor_5.fields import CKEditor5Field
 

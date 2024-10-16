@@ -8,6 +8,8 @@
     {{ post.title }} |    
 {% endblock title %}
 
+{% block canonical_url %}{% if request.is_secure %}https://{% else %}http://{% endif %}{{ request.get_host }}{{ post.get_absolute_url }}{% endblock %}
+
 {% block content %}
 
 <div class="container-fluid py-1">
@@ -41,7 +43,7 @@
                             </div>
                         </div>
                     </div>   
-                </div>
+                </div>                
                 <p class="my-4"> {{ post.body | safe }} </p>      
             </div>
         </div>

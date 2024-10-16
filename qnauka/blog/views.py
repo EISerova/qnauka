@@ -8,6 +8,10 @@ from .models import Post, Category, Ip
 from .forms import CommentForm
 from qnauka.settings import SHOWING_POSTS
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 def frontpage(request):
     popular_posts = Post.objects.filter(main_status=Post.POPULAR)
@@ -19,6 +23,8 @@ def frontpage(request):
     )
     page = request.GET.get("page")
     posts_list = paginator_obj.get_page(page)
+    
+    logger.info('Custom logging view was called')
 
     return render(
         request,

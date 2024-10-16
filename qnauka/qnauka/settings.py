@@ -270,6 +270,53 @@ UNFOLD = {
     },
 }
 
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'telegram': {
+#             'class': 'handler.TelegramHandler',
+#         },
+#     },
+#     'root': {
+#         'handlers': ['telegram'],
+#         'level': 'WARNING',
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['telegram'],
+#             'level': 'ERROR',
+#             'propagate': False,
+#         },
+#     },
+# }
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         'simple': {
+#             'format': '[%(asctime)s] %(levelname)s %(message)s',
+#         },
+#         'verbose': {
+#             'format': '[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s',
+#         },
+#     },
+#     'handlers': {
+#         'telegram': {
+#             'level': 'ERROR',
+#             'class': 'blog.handler.TelegramHandler'
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'level': 'ERROR', 
+#             'handlers': ['console', 'telegram']
+#         }
+#     }
+# }
+
 SECRET_KEY = os.getenv("SECRET_KEY")
 INDEXNOW_KEY = os.getenv("INDEXNOW_KEY")
 HOST = os.getenv("HOST")
