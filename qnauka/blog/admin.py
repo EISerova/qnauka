@@ -44,8 +44,6 @@ class PostAdmin(ModelAdmin):
 
         if request.POST["publish_in_telegram"] == "Publish":
             send_message_to_telegram(post=post_obj)
-            # post_obj.is_published = True
-            # post_obj.save()
             self.message_user(request, "Новость отправлена в Telegram-канал")
             return HttpResponseRedirect(request.path_info)
 
