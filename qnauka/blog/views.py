@@ -1,6 +1,6 @@
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from taggit.models import Tag
 
@@ -80,13 +80,23 @@ def detail(request, category_slug, slug):
 
 
 def category(request, slug):
+    """
+    Метод для страницы новостей по категориям,
+    page_number - номер страницы из запроса
+    """
     popular_posts = Post.objects.filter(main_status=Post.POPULAR)
 
     category = get_object_or_404(Category, slug=slug)
 
-    paginator_obj = Paginator(category.posts.filter(status=Post.ACTIVE), SHOWING_POSTS)
-    page = request.GET.get("page")
-    posts_list = paginator_obj.get_page(page)
+    paginator_obj = Paginator(category.posts.filter(status=Post.ACTIVE), SHOWING_POSTS)    
+    page_number = request.GET.get("page")
+
+    try:
+        posts_list = paginator_obj.page(page_number)
+    except PageNotAnInteger:
+        posts_list = paginator_obj.page(1)
+    except EmptyPage:
+        return redirect('category_detail', slug=slug)
 
     return render(
         request,
@@ -103,18 +113,23 @@ def category(request, slug):
 def tag_page(request, tag):
     """
     Метод для страницы новостей по тегам,
-    tag_name - название тега для заголовка.
+    tag_name - название тега для заголовка на странице.
+    page_number - номер страницы из запроса
     """
-
+    popular_posts = Post.objects.filter(main_status=Post.POPULAR)
+    
+    tag_name = tag.capitalize().replace("-", " ")
     paginator_obj = Paginator(
         Post.objects.filter(tags__slug=tag).distinct(), SHOWING_POSTS
     )
     page_number = request.GET.get("page")
-
-    tag_name = tag.capitalize().replace("-", " ")
-
-    popular_posts = Post.objects.filter(main_status=Post.POPULAR)
-    posts_list = paginator_obj.get_page(page_number)
+    
+    try:
+        posts_list = paginator_obj.page(page_number)
+    except PageNotAnInteger:
+        posts_list = paginator_obj.page(1)
+    except EmptyPage:
+        return redirect('tag_page', tag=tag)
 
     context = {
         "tag": tag,
