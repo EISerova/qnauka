@@ -271,51 +271,28 @@ UNFOLD = {
 }
 
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'telegram': {
-#             'class': 'handler.TelegramHandler',
-#         },
-#     },
-#     'root': {
-#         'handlers': ['telegram'],
-#         'level': 'WARNING',
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['telegram'],
-#             'level': 'ERROR',
-#             'propagate': False,
-#         },
-#     },
-# }
-
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-#         'simple': {
-#             'format': '[%(asctime)s] %(levelname)s %(message)s',
-#         },
-#         'verbose': {
-#             'format': '[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s',
-#         },
-#     },
-#     'handlers': {
-#         'telegram': {
-#             'level': 'ERROR',
-#             'class': 'blog.handler.TelegramHandler'
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'level': 'ERROR', 
-#             'handlers': ['console', 'telegram']
-#         }
-#     }
-# }
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {message} {pathname} {line}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "telegram": {
+            "level": "WARNING",
+            "class": "blog.handler.TelegramHandler",
+            "formatter": "verbose",
+        }
+    },
+    "root": {
+        "handlers": ["telegram"],
+        "level": "WARNING",
+    },
+    "loggers": {"django": {"level": "WARNING", "handlers": ["telegram"]}},
+}
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 INDEXNOW_KEY = os.getenv("INDEXNOW_KEY")
@@ -323,4 +300,6 @@ HOST = os.getenv("HOST")
 
 CHAT_ID = os.getenv("CHAT_ID")
 BOT_DEBUG_TOKEN = os.getenv("BOT_DEBUG_TOKEN")
+CHAT_DEBUG_ID = os.getenv("CHAT_DEBUG_ID")
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+TELEGRAM_LOGGING_EMIT_ON_DEBUG = True

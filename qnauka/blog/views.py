@@ -23,8 +23,8 @@ def frontpage(request):
     )
     page = request.GET.get("page")
     posts_list = paginator_obj.get_page(page)
-    
-    logger.info('Custom logging view was called')
+
+    logger.info("Custom logging view was called")
 
     return render(
         request,
@@ -64,7 +64,7 @@ def detail(request, category_slug, slug):
     else:
         Ip.objects.create(ip=ip)
         post.views.add(Ip.objects.get(ip=ip))
-        
+
     return render(
         request,
         "posts/detail.html",
@@ -73,8 +73,8 @@ def detail(request, category_slug, slug):
             "popular_posts": popular_posts,
             "form": form,
             "comments": comments,
-            'related_posts': related_posts,
-            'tag': tag,
+            "related_posts": related_posts,
+            "tag": tag,
         },
     )
 
@@ -88,7 +88,7 @@ def category(request, slug):
 
     category = get_object_or_404(Category, slug=slug)
 
-    paginator_obj = Paginator(category.posts.filter(status=Post.ACTIVE), SHOWING_POSTS)    
+    paginator_obj = Paginator(category.posts.filter(status=Post.ACTIVE), SHOWING_POSTS)
     page_number = request.GET.get("page")
 
     try:
@@ -96,7 +96,7 @@ def category(request, slug):
     except PageNotAnInteger:
         posts_list = paginator_obj.page(1)
     except EmptyPage:
-        return redirect('category_detail', slug=slug)
+        return redirect("category_detail", slug=slug)
 
     return render(
         request,
@@ -117,19 +117,19 @@ def tag_page(request, tag):
     page_number - номер страницы из запроса
     """
     popular_posts = Post.objects.filter(main_status=Post.POPULAR)
-    
+
     tag_name = tag.capitalize().replace("-", " ")
     paginator_obj = Paginator(
         Post.objects.filter(tags__slug=tag).distinct(), SHOWING_POSTS
     )
     page_number = request.GET.get("page")
-    
+
     try:
         posts_list = paginator_obj.page(page_number)
     except PageNotAnInteger:
         posts_list = paginator_obj.page(1)
     except EmptyPage:
-        return redirect('tag_page', tag=tag)
+        return redirect("tag_page", tag=tag)
 
     context = {
         "tag": tag,
