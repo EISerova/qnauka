@@ -7,11 +7,16 @@
 Главная страница
 ![Main page screenshot](https://i.ibb.co/W5jNmsR/main.jpg)
 
-## Автор: 
-Серова Екатерина
-
-## Обратная связь:
-Если у вас есть предложения или замечания, пожалуйста, свяжитесь со мной - katyaserova@yandex.ru
+## Логирование: 
+Логирование идет в telegram-бота в формате файла html.
+Чтобы подключить бота в .env указать
+```bash
+BOT_TOKEN, CHAT_DEBUG_ID (канал, куда будут отправляться отчеты)
+```
+в settings
+```bash
+TELEGRAM_LOGGING_EMIT_ON_DEBUG = True
+```
 
 ## Запуск проекта в dev-режиме
 
@@ -59,6 +64,11 @@
 
 https://qnauka.ru/
 
+## Автор: 
+Серова Екатерина
+
+## Обратная связь:
+Если у вас есть предложения или замечания, пожалуйста, свяжитесь со мной - katyaserova@yandex.ru
 
 ## Лицензия:
 [MIT](https://choosealicense.com/licenses/mit/)
