@@ -146,7 +146,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-SHOWING_POSTS = 9
+SHOWING_POSTS = 1
 
 
 # SECURE_SSL_REDIRECT = True
