@@ -18,7 +18,7 @@
             <li class="page-item">
                 <a 
                     class="page-link"
-                    href="?page={{page_number}}"
+                    href="{% url 'archive' %}"
                     style="color: #026ca2; margin: 0 9px; border: 1px solid #ddd; {% if posts_list.number == page_number %}background-color: #EAEEF1;{% endif %}"
                 >
                     Архив

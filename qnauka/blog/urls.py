@@ -8,6 +8,7 @@ from blog import views
 urlpatterns = [
     path("", views.frontpage, name="frontpage"),
     path("search/", views.search, name="search"),
+    path("archive/", views.archive, name="archive"),
     re_path(r"^tag/(?P<tag>[\w-]+)/$", views.tag_page, name="tag_page"),
     re_path(r"^taggit_autosuggest/", include("taggit_autosuggest.urls")),
     path("<slug:category_slug>/<slug:slug>/", views.detail, name="post_detail"),

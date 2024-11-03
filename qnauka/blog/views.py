@@ -149,6 +149,20 @@ def search(request):
         {"posts": posts, "query": query, "popular_posts": popular_posts},
     )
 
+def archive(request):
+    popular_posts = Post.objects.filter(main_status=Post.POPULAR)
+    tags = Tag.objects.all().order_by("name")
+    posts_in_tag = {}
+    for tag in tags:
+        posts = Post.objects.filter(tags=tag).count()
+        posts_in_tag[tag] = posts    
+    context = {
+        'posts_in_tag': posts_in_tag,
+        "popular_posts": popular_posts,
+    }
+
+    return render(request, "posts/archive.html", context)
+    
 
 # Метод для получения айпи
 def get_client_ip(request):
