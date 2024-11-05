@@ -1,3 +1,5 @@
+import random
+
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -8,8 +10,13 @@ from .models import Post, Category, Ip
 from .forms import CommentForm
 from qnauka.settings import SHOWING_POSTS
 
+
+def get_popular_posts():
+    return Post.objects.filter(main_status=Post.POPULAR)
+
+
 def frontpage(request):
-    popular_posts = Post.objects.filter(main_status=Post.POPULAR)
+    popular_posts = get_popular_posts()
     top_post = Post.objects.filter(main_status=Post.TOP)
 
     paginator_obj = Paginator(
@@ -32,11 +39,12 @@ def frontpage(request):
 
 
 def detail(request, category_slug, slug):
+    popular_posts = get_popular_posts()
     post = get_object_or_404(Post, slug=slug, status=Post.ACTIVE)
-    popular_posts = Post.objects.filter(main_status=Post.POPULAR)
     comments = post.comments.all()
     tag = get_object_or_404(Tag, post__id=post.id)
-    related_posts = post.tags.similar_objects()[:3]
+    related_posts = list(post.tags.similar_objects())
+    random_related_posts = random.sample(related_posts, 3)
 
     if request.method == "POST":
         form = CommentForm(request.POST or None)
@@ -66,7 +74,7 @@ def detail(request, category_slug, slug):
             "popular_posts": popular_posts,
             "form": form,
             "comments": comments,
-            "related_posts": related_posts,
+            "related_posts": random_related_posts,
             "tag": tag,
         },
     )
@@ -77,7 +85,7 @@ def category(request, slug):
     Метод для страницы новостей по категориям,
     page_number - номер страницы из запроса
     """
-    popular_posts = Post.objects.filter(main_status=Post.POPULAR)
+    popular_posts = get_popular_posts()
 
     category = get_object_or_404(Category, slug=slug)
 
@@ -109,7 +117,7 @@ def tag_page(request, tag):
     tag_name - название тега для заголовка на странице.
     page_number - номер страницы из запроса
     """
-    popular_posts = Post.objects.filter(main_status=Post.POPULAR)
+    popular_posts = get_popular_posts()
 
     tag_name = tag.capitalize().replace("-", " ")
     paginator_obj = Paginator(
@@ -136,7 +144,7 @@ def tag_page(request, tag):
 
 
 def search(request):
-    popular_posts = Post.objects.filter(main_status=Post.POPULAR)
+    popular_posts = get_popular_posts()
 
     query = request.GET.get("query", "")
     posts = Post.objects.filter(status=Post.ACTIVE).filter(
@@ -149,20 +157,27 @@ def search(request):
         {"posts": posts, "query": query, "popular_posts": popular_posts},
     )
 
+
 def archive(request):
-    popular_posts = Post.objects.filter(main_status=Post.POPULAR)
+    """
+    Метод для страницы с архивом новостей по тегам,
+    создается словарь где ключ tag - тег,
+    а значение posts - все посты по тегу
+    """
+    popular_posts = get_popular_posts()
+
     tags = Tag.objects.all().order_by("name")
     posts_in_tag = {}
     for tag in tags:
         posts = Post.objects.filter(tags=tag).count()
-        posts_in_tag[tag] = posts    
+        posts_in_tag[tag] = posts
     context = {
-        'posts_in_tag': posts_in_tag,
+        "posts_in_tag": posts_in_tag,
         "popular_posts": popular_posts,
     }
 
     return render(request, "posts/archive.html", context)
-    
+
 
 # Метод для получения айпи
 def get_client_ip(request):

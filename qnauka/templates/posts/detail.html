@@ -48,9 +48,24 @@
             </div>
         </div>
         <hr>
-        {% for related_post in related_posts %}
-            {{ related_post }}
-        {% endfor %}
+        <div class="bg-light rounded my-4 p-4">
+            <h4 class="mb-4">Читайте также</h4>
+            <div class="row g-4">
+                {% for related_post in related_posts %}
+                    <div class="col-lg-4">
+                        <div class="media position-relative">
+                            <div class="d-flex align-items-center p-3 bg-white rounded">
+                                <img src={{ related_post.image.url }} class="img-fluid rounded" alt="post-thumbnail">
+                            </div>
+                            <div class="ms-3">
+                                <a href="{% url 'post_detail' related_post.category.slug related_post.slug %}" class="h5 mb-2 stretched-link">{{ related_post.title }}</a>
+                            </div>
+                        </div> 
+                    </div>                   
+                {% endfor %}
+            </div>
+        </div>
+        <hr>
         {% include 'posts/includes/comments.html' %}
     </div>
 </div>
