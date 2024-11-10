@@ -43,13 +43,15 @@
                             </div>
                         </div>
                     </div>   
-                </div>                
-                <p class="my-4"> {{ post.body | safe }} </p>      
+                </div>
+                <div style="font-size: 1.12rem;">
+                    <p class="my-4"> {{ post.body | safe }} </p>
+                </div>     
             </div>
         </div>
         <hr>
         <div class="bg-light rounded my-4 p-4">
-            <h4 class="mb-4">Читайте также</h4>
+            <h4 class="mb-4" >Читайте также</h4>
             <div class="row g-4">
                 {% for related_post in related_posts %}
                     <div class="col-lg-4">

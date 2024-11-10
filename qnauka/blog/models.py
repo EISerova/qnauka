@@ -72,7 +72,7 @@ class Post(models.Model):
         verbose_name="блок на главной",
     )
     image = models.ImageField(
-        upload_to="uploads/", blank=True, null=True, verbose_name="изображение"
+        upload_to="uploads/", verbose_name="изображение"
     )
     tags = TaggableManager(blank=True, verbose_name="теги")
     source = models.CharField(

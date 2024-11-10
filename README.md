@@ -55,7 +55,6 @@ TELEGRAM_LOGGING_EMIT_ON_DEBUG = True
   python manage.py runserver
 ```
 
-
 ## Переменные окружения
 
 Чтобы запустить этот проект, вам нужно добавить в файл .env переменные, указанные в .env.example

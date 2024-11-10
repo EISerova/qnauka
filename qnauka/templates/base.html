@@ -72,7 +72,7 @@
                     <div class="row g-4">
                         <div class="col-lg-8 col-xl-9">                  
                             <div class="container-fluid bg-light" style="width: 100%;">
-                                <nav class="navbar navbar-light navbar-expand-lg" style="width: auto;">
+                                <nav class="navbar navbar-light navbar-expand-xl" style="width: auto;">
                                     <a href="/" class="navbar-brand mt-3">
                                         <p class="text-primary display-6 mb-2" style="line-height: 0;">Научные</p>
                                         <small class="text-body fw-normal" style="letter-spacing: 12px;">горизонты</small>
@@ -81,39 +81,41 @@
                                         <span class="navbar-toggler-icon"></span>
                                     </button>
                                     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width:50px ">
-                                                <div class="navbar-nav mx-auto border-top d-inline-flex">
-                                                    <ul class="navbar-nav d-inline-flex text-center" >
-                                                        <li class="nav-item mb-1 px-1">
-                                                            <a class="d-flex py-2 rounded-pill me-2 border border-dark flex-div" style=" background-color: #f8f9fa; {% if category|stringformat:'s' == "История" %}background-color: #DDE5F6;{% endif %}" data-bs-toggle="pill" href="{% url 'category_detail' 'istoriya' %}">
-                                                                <span class="text-dark" style="width: 120px;">История</span> 
-                                                            </a>
-                                                        </li>
-                                                        <i class="fa-sharp fa-light fa-house"></i>
-                                                        <li class="nav-item mb-1 px-1">
-                                                            <a class="d-flex py-2 rounded-pill me-2 border border-dark" style="background-color: #f8f9fa; {% if category|stringformat:'s' == "Технологии" %}background-color: #DDE5F6;{% endif %}" data-bs-toggle="pill" href="{% url 'category_detail' 'tehnologii' %}">
-                                                                <span class="text-dark" style="width: 120px;">Технологии</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="nav-item mb-1 px-1">
-                                                            <a class="d-flex py-2 rounded-pill me-2 border border-dark" style="background-color: #f8f9fa; {% if category|stringformat:'s' == "Земля" %}background-color: #DDE5F6;{% endif %}" data-bs-toggle="pill" href="{% url 'category_detail' 'zemlya' %}">
-                                                                <span class="text-dark" style="width: 120px;">Земля</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="nav-item mb-1 px-1">
-                                                            <a class="d-flex py-2 rounded-pill me-2 border border-dark" style="background-color: #f8f9fa; {% if category|stringformat:'s' == "Космос" %}background-color: #DDE5F6;{% endif %}" data-bs-toggle="pill" href="{% url 'category_detail' 'kosmos' %}">
-                                                                <span class="text-dark" style="width: 120px;">Космос</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="nav-item mb-1 px-1">
-                                                            <a class="d-flex py-2 rounded-pill me-2 border border-dark" style="background-color: #f8f9fa; {% if category|stringformat:'s' == "Тело человека" %}background-color: #DDE5F6;{% endif %}" data-bs-toggle="pill" href="{% url 'category_detail' 'telo-cheloveka' %}">
-                                                                <span class="text-dark" style="width: 120px;">Тело человека</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                        <div class="d-flex">
+                                            <div class="navbar-nav mx-auto">
+                                                <ul class="nav nav-pills flex-column flex-sm-row text-center" >
+                                                    <li class="nav-item mb-1 px-1 ">
+                                                        <a class="d-flex py-2 rounded-pill me-2 border border-dark" style=" background-color: #f8f9fa; {% if category|stringformat:'s' == "История" %}background-color: #DDE5F6;{% endif %}" data-bs-toggle="pill" href="{% url 'category_detail' 'istoriya' %}">
+                                                            <span class="text-dark " style="width: 120px;">История</span> 
+                                                        </a>
+                                                    </li>
+                                                    <i class="fa-sharp fa-light fa-house"></i>
+                                                    <li class="nav-item mb-1 px-1">
+                                                        <a class="d-flex py-2 rounded-pill me-2 border border-dark" style="background-color: #f8f9fa; {% if category|stringformat:'s' == "Технологии" %}background-color: #DDE5F6;{% endif %}" data-bs-toggle="pill" href="{% url 'category_detail' 'tehnologii' %}">
+                                                            <span class="text-dark" style="width: 120px;">Технологии</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item mb-1 px-1">
+                                                        <a class="d-flex py-2 rounded-pill me-2 border border-dark" style="background-color: #f8f9fa; {% if category|stringformat:'s' == "Земля" %}background-color: #DDE5F6;{% endif %}" data-bs-toggle="pill" href="{% url 'category_detail' 'zemlya' %}">
+                                                            <span class="text-dark" style="width: 120px;">Земля</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item mb-1 px-1">
+                                                        <a class="d-flex py-2 rounded-pill me-2 border border-dark" style="background-color: #f8f9fa; {% if category|stringformat:'s' == "Космос" %}background-color: #DDE5F6;{% endif %}" data-bs-toggle="pill" href="{% url 'category_detail' 'kosmos' %}">
+                                                            <span class="text-dark" style="width: 120px;">Космос</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item mb-1 px-1">
+                                                        <a class="d-flex py-2 rounded-pill me-2 border border-dark" style="background-color: #f8f9fa; {% if category|stringformat:'s' == "Тело человека" %}background-color: #DDE5F6;{% endif %}" data-bs-toggle="pill" href="{% url 'category_detail' 'telo-cheloveka' %}">
+                                                            <span class="text-dark" style="width: 120px;">Тело человека</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                        </nav>
+                                        </div>
                                     </div>
+                                </nav>
+                            </div>
                             <div class="tab-content mb-4">
                                 <div id="tab-1" class="tab-pane fade show p-0 active">
                                     <div class="row g-4">

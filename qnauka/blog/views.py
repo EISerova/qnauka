@@ -3,6 +3,7 @@ import random
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponseRedirect
 
 from taggit.models import Tag
 
@@ -10,12 +11,19 @@ from .models import Post, Category, Ip
 from .forms import CommentForm
 from qnauka.settings import SHOWING_POSTS
 
+BAN_LIST_IP = ['10.128.0.35',]
+
 
 def get_popular_posts():
     return Post.objects.filter(main_status=Post.POPULAR)
 
 
 def frontpage(request):
+    
+    ip = get_client_ip(request)
+    if ip in BAN_LIST_IP:
+        return HttpResponseRedirect('././')
+    
     popular_posts = get_popular_posts()
     top_post = Post.objects.filter(main_status=Post.TOP)
 
@@ -44,7 +52,11 @@ def detail(request, category_slug, slug):
     comments = post.comments.all()
     tag = get_object_or_404(Tag, post__id=post.id)
     related_posts = list(post.tags.similar_objects())
-    random_related_posts = random.sample(related_posts, 3)
+    
+    if len(related_posts) >= 3:
+        random_related_posts = random.sample(related_posts, 3)
+    else:
+        random_related_posts = related_posts        
 
     if request.method == "POST":
         form = CommentForm(request.POST or None)
@@ -59,6 +71,8 @@ def detail(request, category_slug, slug):
         form = CommentForm()
 
     ip = get_client_ip(request)
+    if ip in BAN_LIST_IP:
+        return HttpResponseRedirect('././')
 
     if Ip.objects.filter(ip=ip).exists():
         post.views.add(Ip.objects.get(ip=ip))
@@ -184,6 +198,7 @@ def get_client_ip(request):
     x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
     if x_forwarded_for:
         ip = x_forwarded_for.split(",")[0]
+        print('#############', ip)
     else:
         ip = request.META.get("REMOTE_ADDR")  # В REMOTE_ADDR значение айпи пользователя
     return ip
