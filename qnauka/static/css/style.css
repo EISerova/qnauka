@@ -712,17 +712,12 @@ blockquote.pull-left {
     margin-bottom: 1.5rem;
 }
 
-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 50%;
-    height: auto !important;
-    border-radius: var(--bs-border-radius) !important;
-}
 
-imageonmain {
-    float: right !important;
+
+.imageonmain {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
 }
 
 figcaption {

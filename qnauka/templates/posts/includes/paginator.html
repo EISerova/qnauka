@@ -1,7 +1,7 @@
 {% load static %}
 
 <nav>
-    <ul class="pagination pagination-sm justify-content-center" style="color: #026ca2;">
+    <ul class="pagination pagination-sm justify-content-center" style="color: #026ca2; margin: 6px;">
     {% for page_number in paginator_obj.page_range %}
         {% if page_number <= 9 %}
             <li class="page-item">
